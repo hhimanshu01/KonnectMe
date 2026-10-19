@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf5ff"/><stop offset=".52" stop-color="#c9e2ff"/><stop offset="1" stop-color="#f5faff"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#62b5ff"/><stop offset="1" stop-color="#1761e9"/>
+    </linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#173d91"/><stop offset="1" stop-color="#071a4b"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e8f1ff"/>
+    </linearGradient>
+    <linearGradient id="laptop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9fcff"/><stop offset="1" stop-color="#8caee0"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#174eaa" flood-opacity=".22"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1100" fill="url(#bg)"/>
+  <circle cx="-50" cy="-80" r="390" fill="#91c7ff" opacity=".38"/>
+  <circle cx="10" cy="545" r="235" fill="#3d9bfa" opacity=".8"/>
+  <path d="M0 680 C155 595 250 770 420 735 S690 620 900 755 L900 1100 L0 1100Z" fill="url(#wave)"/>
+  <path d="M0 900 C180 810 270 1000 450 930 S720 855 900 945 L900 1100 L0 1100Z" fill="#174fce" opacity=".92"/>
+  <path d="M0 970 C190 915 310 1080 520 1015 S750 970 900 1020" fill="none" stroke="#80c5ff" stroke-width="3" opacity=".65"/>
+  <path d="M0 205 C180 150 245 45 310 0" fill="none" stroke="#438df5" stroke-width="3" opacity=".8"/>
+  <path d="M0 780 C180 760 240 920 425 890 S710 850 900 900" fill="none" stroke="#d9efff" stroke-width="3" opacity=".8"/>
+
+  <!-- Brand -->
+  <g transform="translate(100 185)">
+    <g transform="translate(0 0)">
+      <path d="M20 0 H104 Q128 0 128 24 V83 Q128 106 104 106 H73 L48 128 V106 H20 Q0 106 0 83 V24 Q0 0 20 0Z" fill="#1769f5"/>
+      <circle cx="31" cy="52" r="8" fill="#fff"/><circle cx="61" cy="52" r="8" fill="#fff"/><circle cx="91" cy="52" r="8" fill="#fff"/>
+      <path d="M79 36 H133 Q153 36 153 56 V104 Q153 124 133 124 H125 V145 L99 124 H79 Q72 124 68 120 L93 99 H105 Q112 99 112 90 V56 Q112 46 103 46 H79Z" fill="#2461d9" opacity=".95"/>
+    </g>
+    <text x="180" y="74" font-family="Inter, Arial, sans-serif" font-size="67" font-weight="800" letter-spacing="-2.5" fill="#08132f">Konnect<tspan fill="#1769f5">Me</tspan></text>
+    <text x="182" y="118" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="400" fill="#58719d">Connect <tspan fill="#2e75df">·</tspan> Communicate <tspan fill="#2e75df">·</tspan> Collaborate</text>
+  </g>
+
+  <!-- Connection path -->
+  <path d="M-30 535 C140 405 245 525 365 600 S635 725 790 600" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="12 12" opacity=".9"/>
+  <path d="M775 603 L805 590 L793 623Z" fill="#2582ef"/>
+
+  <!-- Floating video tile -->
+  <g transform="translate(130 400) rotate(-12)" filter="url(#shadow)">
+    <rect width="155" height="142" rx="27" fill="#fff" fill-opacity=".58" stroke="#fff" stroke-opacity=".75" stroke-width="2"/>
+    <rect x="35" y="42" width="64" height="48" rx="8" fill="#1769f5"/>
+    <path d="M108 52 L132 39 Q138 36 138 45 V87 Q138 96 130 91 L108 79Z" fill="#1769f5"/>
+  </g>
+
+  <!-- Floating group tile -->
+  <g transform="translate(635 465) rotate(12)" filter="url(#shadow)">
+    <rect width="164" height="148" rx="28" fill="#fff" fill-opacity=".62" stroke="#fff" stroke-opacity=".8" stroke-width="2"/>
+    <g fill="#1769f5">
+      <circle cx="82" cy="54" r="16"/><circle cx="51" cy="65" r="13"/><circle cx="113" cy="65" r="13"/>
+      <path d="M48 111 Q49 79 82 79 Q115 79 116 111 Q116 120 106 120 H58 Q48 120 48 111Z"/>
+      <path d="M18 108 Q20 82 47 82 Q55 82 62 87 Q50 99 50 117 H28 Q18 117 18 108Z"/>
+      <path d="M102 87 Q109 82 117 82 Q144 82 146 108 Q146 117 136 117 H114 Q114 99 102 87Z"/>
+    </g>
+  </g>
+
+  <!-- Chat tile -->
+  <g transform="translate(32 705) rotate(-14)" filter="url(#shadow)">
+    <rect width="100" height="100" rx="22" fill="#fff" fill-opacity=".7" stroke="#fff" stroke-width="2"/>
+    <path d="M24 26 H76 Q82 26 82 33 V61 Q82 68 75 68 H48 L34 81 V68 H24 Q18 68 18 61 V33 Q18 26 24 26Z" fill="#1769f5"/>
+    <path d="M31 41 H68 M31 52 H60" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Microphone tile -->
+  <g transform="translate(665 710) rotate(17)" filter="url(#shadow)">
+    <rect width="130" height="130" rx="27" fill="#fff" fill-opacity=".62" stroke="#fff" stroke-opacity=".8" stroke-width="2"/>
+    <rect x="53" y="29" width="24" height="49" rx="12" fill="#1769f5"/>
+    <path d="M39 62 V67 Q39 91 65 91 Q91 91 91 67 V62 M65 91 V105 M51 105 H79" fill="none" stroke="#1769f5" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- Laptop -->
+  <g filter="url(#shadow)" transform="translate(120 600) rotate(-2)">
+    <rect x="0" y="0" width="520" height="340" rx="20" fill="url(#deep)" stroke="#dcecff" stroke-width="5"/>
+    <rect x="14" y="18" width="492" height="305" rx="8" fill="url(#screen)"/>
+    <rect x="14" y="18" width="142" height="305" rx="8" fill="#0b245c"/>
+    <rect x="14" y="18" width="492" height="35" rx="8" fill="#173b88"/>
+    <circle cx="33" cy="35" r="4" fill="#7eaaf7"/><circle cx="49" cy="35" r="4" fill="#7eaaf7"/><circle cx="65" cy="35" r="4" fill="#7eaaf7"/>
+    <circle cx="480" cy="35" r="4" fill="#8eb8ff"/><circle cx="465" cy="35" r="4" fill="#8eb8ff"/><circle cx="450" cy="35" r="4" fill="#8eb8ff"/>
+    <!-- sidebar contacts -->
+    <g>
+      <g fill="#4b8df4">
+        <circle cx="43" cy="82" r="17"/><circle cx="43" cy="132" r="17"/><circle cx="43" cy="182" r="17"/><circle cx="43" cy="232" r="17"/><circle cx="43" cy="282" r="17"/>
+      </g>
+      <g fill="#d8e8ff">
+        <circle cx="43" cy="77" r="6"/><path d="M31 91 Q32 80 43 80 Q54 80 55 91Z"/>
+        <circle cx="43" cy="127" r="6"/><path d="M31 141 Q32 130 43 130 Q54 130 55 141Z"/>
+        <circle cx="43" cy="177" r="6"/><path d="M31 191 Q32 180 43 180 Q54 180 55 191Z"/>
+        <circle cx="43" cy="227" r="6"/><path d="M31 241 Q32 230 43 230 Q54 230 55 241Z"/>
+        <circle cx="43" cy="277" r="6"/><path d="M31 291 Q32 280 43 280 Q54 280 55 291Z"/>
+      </g>
+      <g stroke="#6c93d7" stroke-width="7" stroke-linecap="round">
+        <path d="M69 79 H112 M69 91 H98"/><path d="M69 129 H112 M69 141 H98"/>
+        <path d="M69 179 H112 M69 191 H98"/><path d="M69 229 H112 M69 241 H98"/>
+        <path d="M69 279 H112 M69 291 H98"/>
+      </g>
+    </g>
+    <!-- chat area -->
+    <circle cx="190" cy="79" r="17" fill="#1769f5"/><circle cx="190" cy="74" r="6" fill="#fff"/><path d="M178 89 Q179 78 190 78 Q201 78 202 89Z" fill="#fff"/>
+    <rect x="217" y="68" width="110" height="10" rx="5" fill="#d7e4fb"/>
+    <rect x="217" y="84" width="70" height="8" rx="4" fill="#e3ecfc"/>
+    <rect x="183" y="112" width="205" height="54" rx="15" fill="#e4edff"/>
+    <rect x="201" y="126" width="160" height="8" rx="4" fill="#b9cdf3"/><rect x="201" y="142" width="115" height="8" rx="4" fill="#c6d7f5"/>
+    <path d="M292 184 H455 Q468 184 468 197 V223 Q468 236 455 236 H322 L302 250 V236 H292 Q279 236 279 223 V197 Q279 184 292 184Z" fill="#1769f5"/>
+    <rect x="301" y="200" width="135" height="8" rx="4" fill="#b8d5ff" opacity=".9"/><rect x="301" y="215" width="95" height="7" rx="3.5" fill="#8ebcff"/>
+    <rect x="183" y="259" width="185" height="45" rx="14" fill="#e4edff"/>
+    <rect x="201" y="273" width="140" height="8" rx="4" fill="#b9cdf3"/><rect x="201" y="287" width="90" height="7" rx="3.5" fill="#c6d7f5"/>
+    <rect x="179" y="310" width="295" height="9" rx="4.5" fill="#c9d9f3"/>
+    <!-- laptop base -->
+    <path d="M-24 341 L544 341 L607 375 Q613 382 597 385 L-5 385 Q-24 383 -17 373Z" fill="url(#laptop)" stroke="#e5f1ff" stroke-width="3"/>
+    <path d="M190 346 H335 L320 358 H204Z" fill="#7899c8" opacity=".8"/>
+    <path d="M-6 376 Q280 390 598 376" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
+  </g>
+</svg>
