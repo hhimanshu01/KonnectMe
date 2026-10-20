@@ -37,7 +37,7 @@ export default function LandingPage()
                     <p>Bridge the distance with effortless video calls.</p>
 
                     <div role="button">
-                        <a href="/auth">Get Started</a>
+                        <Link to={"/auth"}>Get Started</Link>
                     </div>
 
                 </div>
