@@ -25,8 +25,8 @@ function HomeComponent() {
 
             <div className="navBar">
 
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <h2>KonnectMe</h2>
+                <div >
+                    <h1 onClick={() => {navigate("/")}} style={{cursor : "pointer"}}><i className="fa-solid fa-video" style={{marginRight : "1rem" , color : "#246BFD"}}></i>Konnect<span style={{color : "#246BFD"}}>Me</span></h1>
                 </div>
 
                 <div style={{ display: "flex", alignItems: "center" }}>
@@ -38,10 +38,10 @@ function HomeComponent() {
 
                     </IconButton>
                     <p>History</p>
-
-                    <Button onClick={() => {
+                    &nbsp;&nbsp;&nbsp;
+                    <Button variant='contained' onClick={() => {
                         localStorage.removeItem("token")
-                        navigate("/auth")
+                        navigate("/")
                     }}>
                         Logout
                     </Button>
@@ -56,10 +56,10 @@ function HomeComponent() {
                 <div className="leftPanel">
                     <div>
                         <h2>Providing Quality Video Call Just Like Quality Education</h2>
-
+                        <br />
                         <div style={{ display: 'flex', gap: "10px" }}>
 
-                            <TextField onChange={e => setMeetingCode(e.target.value)} id="outlined-basic" label="Meeting Code" variant="outlined" />
+                            <TextField onChange={e => setMeetingCode(e.target.value)} id="outlined-basic" label="Meeting Code" variant="outlined" /> &nbsp;
                             <Button onClick={handleJoinVideoCall} variant='contained'>Join</Button>
 
                         </div>

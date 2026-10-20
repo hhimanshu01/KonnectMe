@@ -1,10 +1,20 @@
 import { Link , useNavigate } from "react-router-dom";
 import "../App.css";
+import { Button } from "@mui/material";
 
 
 export default function LandingPage()
 {
     const router = useNavigate();
+
+    const isAuthenticated = () => {
+            if(localStorage.getItem("token")) {
+                return true;
+            } 
+            return false;
+        }
+
+        // const username = localStorage.getItem("username");
     return (
         <div className="landingPageContainer">
 
@@ -18,11 +28,23 @@ export default function LandingPage()
 
                     <p onClick={() => {router("/abc")}}>Join as Guest</p>
 
-                    <p onClick={() => {router("/auth")}}> Register</p>
+                    {
+                        !isAuthenticated() ? 
+                        <div style={{display : "flex" , gap : "1.5rem"}}>
+                            <p onClick={() => {router("/auth")}}> Register</p>
 
-                    <div role="button" onClick={() => {router("/auth")}}>
-                        <p>Login</p>
-                    </div>
+                            <div role="button" onClick={() => {router("/auth")}}>
+                                <p>Login</p>
+                            </div> 
+                        </div>
+                            :       
+                            
+                            <div style={{display : "flex" , gap : "1.5rem" }}>
+                                  <p> <b>LoggedIn</b> </p>  
+                            </div>
+                    }
+
+                    
 
                 </div>
 

@@ -16,7 +16,7 @@ import StopScreenShareRoundedIcon from '@mui/icons-material/StopScreenShareRound
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
-
+import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
 
 
 const server_url = server;
@@ -384,25 +384,11 @@ export function VideoMeet() {
                 clients.forEach((socketListId) => {
 
                     connections[socketListId] = new RTCPeerConnection(peerConfigConnections);
-                    connections[socketListId].oniceconnectionstatechange = () => {
-    console.log(
-        "ICE CONNECTION STATE:",
-        socketListId,
-        connections[socketListId].iceConnectionState
-    );
-};
+                    
 
-connections[socketListId].onconnectionstatechange = () => {
-    console.log(
-        "PEER CONNECTION STATE:",
-        socketListId,
-        connections[socketListId].connectionState
-    );
-};
+                    console.log("PEER CONNECTION CREATED:", socketListId);
 
-                                            console.log("PEER CONNECTION CREATED:", socketListId);
-
-                                            console.log("CONNECTION STATE:", connections[socketListId].connectionState);    
+                    console.log("CONNECTION STATE:", connections[socketListId].connectionState);    
 
                     // Wait for their ice candidate       
                     connections[socketListId].onicecandidate = function (event) {
@@ -449,70 +435,85 @@ connections[socketListId].onconnectionstatechange = () => {
                     // };
 
                     // Receive remote video and audio streams
+                    //     connections[socketListId].ontrack = (event) => {
+                    
+                    //     const remoteStream = event.streams[0];
+
+                    //     console.log("REMOTE STREAM ACTIVE:", remoteStream?.active);
+                    //     console.log("REMOTE VIDEO TRACKS:", remoteStream?.getVideoTracks());
+                    //     console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
+
+                    //     if (!remoteStream) {
+                    //         console.log("No remote stream received");
+                    //         return;
+                    //     }
+
+                    //     const videoExists = videoRef.current.find(
+                    //         video => video.socketId === socketListId
+                    //     );
+
+                    //     if (videoExists) {
+
+                    //         console.log("UPDATING EXISTING VIDEO");
+
+                    //         setVideos(prevVideos => {
+                    //             const updatedVideos = prevVideos.map(video =>
+                    //                 video.socketId === socketListId
+                    //                     ? { ...video, stream: remoteStream }
+                    //                     : video
+                    //             );
+
+                    //             videoRef.current = updatedVideos;
+                    //             return updatedVideos;
+                    //         });
+
+                    //     } else {
+
+                    //         console.log("ADDING NEW VIDEO");
+
+                    //         const newVideo = {
+                    //             socketId: socketListId,
+                    //             stream: remoteStream,
+                    //             autoplay: true,
+                    //             playsinline: true
+                    //         };
+
+                    //         setVideos(prevVideos => {
+                    //             const updatedVideos = [...prevVideos, newVideo];
+                    //             videoRef.current = updatedVideos;
+                    //             return updatedVideos;
+                    //         });
+
+                    //     }
+                    // };
+
 connections[socketListId].ontrack = (event) => {
-event.track.onmute = () => {
-    console.log("REMOTE TRACK MUTED:", event.track.kind);
-};
-
-event.track.onunmute = () => {
-    console.log("REMOTE TRACK UNMUTED:", event.track.kind);
-};
-
-event.track.onended = () => {
-    console.log("REMOTE TRACK ENDED:", event.track.kind);
-};
-    console.log("REMOTE TRACK RECEIVED:", socketListId);
-    console.log("TRACK:", event.track);
-    console.log("STREAM:", event.streams[0]);
-
     const remoteStream = event.streams[0];
 
-    console.log("REMOTE STREAM ACTIVE:", remoteStream?.active);
-console.log("REMOTE VIDEO TRACKS:", remoteStream?.getVideoTracks());
-console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
+    if (!remoteStream) return;
 
-    if (!remoteStream) {
-        console.log("No remote stream received");
-        return;
-    }
+    setVideos(prevVideos => {
+        const existingVideo = prevVideos.some(
+            video => video.socketId === socketListId
+        );
 
-    const videoExists = videoRef.current.find(
-        video => video.socketId === socketListId
-    );
-
-    if (videoExists) {
-
-        console.log("UPDATING EXISTING VIDEO");
-
-        setVideos(prevVideos => {
-            const updatedVideos = prevVideos.map(video =>
+        const updatedVideos = existingVideo
+            ? prevVideos.map(video =>
                 video.socketId === socketListId
                     ? { ...video, stream: remoteStream }
                     : video
-            );
+            )
+            : [
+                ...prevVideos,
+                {
+                    socketId: socketListId,
+                    stream: remoteStream
+                }
+            ];
 
-            videoRef.current = updatedVideos;
-            return updatedVideos;
-        });
-
-    } else {
-
-        console.log("ADDING NEW VIDEO");
-
-        const newVideo = {
-            socketId: socketListId,
-            stream: remoteStream,
-            autoplay: true,
-            playsinline: true
-        };
-
-        setVideos(prevVideos => {
-            const updatedVideos = [...prevVideos, newVideo];
-            videoRef.current = updatedVideos;
-            return updatedVideos;
-        });
-
-    }
+        videoRef.current = updatedVideos;
+        return updatedVideos;
+    });
 };
 
 
@@ -626,7 +627,22 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
     }
 
     let handleChat = () => {
-        setModal(!showModal);
+        if (showModal) {
+
+        closeChat();
+
+    } else {
+
+        openChat();
+    }
+    }
+
+    let openChat = () => {
+        setModal(true);
+        setNewMessages(0);
+    }
+    let closeChat = () => {
+        setModal(false);
     }
 
     let sendMessage = () => {
@@ -634,27 +650,28 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
         setMessage("");
     }
 
-    let routeTo = useNavigate();
 
     let handleEndCall = () => {
         try {
             let tracks = localVideoref.current.srcObject.getTracks()
             tracks.forEach(track => track.stop())
         } catch (e) { }
-        routeTo("/home");
+        window.location.href = "/"
     }
 
 
     return (
         <div>
             {askForUsername === true ? 
-            <div>
+            <div style={{marginBlock : "5rem" , textAlign : "center"}}>
                 <h1>Enter Into Lobby</h1>
-                <TextField id="outlined-basic" value={username} label="username" variant="outlined" onChange={e => setUsername(e.target.value)}/>
+                <br />
+                <TextField id="outlined-basic" value={username} label="Enter Username" variant="outlined" onChange={e => setUsername(e.target.value)}/> &nbsp;&nbsp;
                 <Button variant="contained" onClick={connect}>Connect</Button>
-
+                <br />
+                <br />
                 <div>
-                    <video ref={localVideoRef} autoPlay muted style={{ transform: "scaleX(-1)" }}></video>
+                    <video ref={localVideoRef} autoPlay muted style={{ transform: "scaleX(-1)" , borderRadius : "20px"}}></video>
                 </div>
             </div> 
             
@@ -667,7 +684,7 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
 
 
                     <div className="chatContainer">
-                        <h1>CHAT</h1>
+                        <h1 style={{textAlign : "center"}}>CHAT</h1>
 
                         <div className="chatDisplay">
 
@@ -676,7 +693,9 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
                                     return (
                                         <div style={{ marginBottom: "20px" }} key={index}>
                                             <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                                            <p> -&gt; {item.data}</p>
+                                            <div style={{ display: "flex" , alignItems : "center" }}>
+                                                <KeyboardReturnRoundedIcon style={{ transform: "scaleX(-1)"}}/>&nbsp;<span>{item.data}</span>
+                                            </div>
                                         </div>
                                     );
                                 }) : <p>No Messages Yet</p>}
@@ -701,17 +720,16 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
                         {(video === true) ? <VideocamRoundedIcon /> : <VideocamOffRoundedIcon />}
                     </IconButton>
 
-                    <IconButton onClick={handleEndCall} style={{color: "white" , backgroundColor:"red"}}>
-                        <CallEndRoundedIcon style={{fontSize: "2rem"}}/>
-                    </IconButton>
 
                     <IconButton onClick={handleAudio} style={{color: "white"}}>
                         {(audio === true) ? <MicRoundedIcon /> : <MicOffRoundedIcon />}
                     </IconButton>
 
+                    {screenAvailable === true ?
+
                     <IconButton onClick={handleScreen} style={{color: "white"}}>
                         {(screen === true) ? <ScreenShareRoundedIcon /> : <StopScreenShareRoundedIcon />}
-                    </IconButton>
+                    </IconButton> : <></>}
 
                     <IconButton onClick={handleChat} style={{color: "white"}}>
                     <Badge badgeContent={newMessages} max={999} color="primary">
@@ -720,12 +738,16 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
                         
                     </Badge>
                     </IconButton>
+                    &nbsp;
+                    <IconButton onClick={handleEndCall} style={{color: "white" , backgroundColor:"red"}}>
+                        <CallEndRoundedIcon style={{fontSize: "2rem"}}/>
+                    </IconButton>
                 </div>
 
             
                 <video className="meetUserVideo" ref={localVideoRef} autoPlay muted style={{ transform: "scaleX(-1)" }}></video>
 
-                    {/* <div className="conferenceView">
+                    <div className="conferenceView">
 
                     {videos.map((video) => 
 
@@ -747,37 +769,8 @@ console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
 
                     )
                     }
-                    </div> */}
-                    <div className="conferenceView">
-    {videos.map((video) => (
-        <div key={video.socketId}>
-            <video
-                data-socket={video.socketId}
-                ref={ref => {
-                    if (ref && video.stream) {
-                        ref.srcObject = video.stream;
-
-                        ref.onloadedmetadata = () => {
-                            console.log("REMOTE VIDEO METADATA LOADED");
-                            console.log("Video width:", ref.videoWidth);
-                            console.log("Video height:", ref.videoHeight);
-
-                            ref.play().catch(err => {
-                                console.error("REMOTE VIDEO PLAY ERROR:", err);
-                            });
-                        };
-
-                        ref.onplaying = () => {
-                            console.log("REMOTE VIDEO IS PLAYING");
-                        };
-                    }
-                }}
-                autoPlay
-                playsInline
-            />
-        </div>
-    ))}
-</div>
+                    </div>
+                    
             </div>
             }
         </div>
