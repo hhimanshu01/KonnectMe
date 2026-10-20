@@ -16,6 +16,8 @@ const app = express();
 
 const server = createServer(app);
 
+const io = connectToSocket(server);
+
 const dbUrl = process.env.ATLASDB_URL;
 
 app.set("port" , process.env.PORT || 8000); // .set is for local variable

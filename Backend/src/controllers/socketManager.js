@@ -19,6 +19,11 @@ export const connectToSocket = (server) => {
         console.log("Something Connected");
 
         socket.on("join-call" , (path)=>{
+
+            console.log("ROOM PATH:", path);
+
+        console.log("SOCKET ID:", socket.id);
+
             if(connections[path] === undefined)
             {
                 connections[path] = [];
