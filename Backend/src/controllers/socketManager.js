@@ -10,7 +10,7 @@ export const connectToSocket = (server) => {
             origin : "*",
             methods : ["GET" , "POST"],
             allowedHeaders : ["*"],
-            credetials : true
+            credentials : true
         }
     }); // SERVER  - NODE acdp server
 
