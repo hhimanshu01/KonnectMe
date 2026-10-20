@@ -428,7 +428,17 @@ connections[socketListId].onconnectionstatechange = () => {
 
                     // Receive remote video and audio streams
 connections[socketListId].ontrack = (event) => {
+event.track.onmute = () => {
+    console.log("REMOTE TRACK MUTED:", event.track.kind);
+};
 
+event.track.onunmute = () => {
+    console.log("REMOTE TRACK UNMUTED:", event.track.kind);
+};
+
+event.track.onended = () => {
+    console.log("REMOTE TRACK ENDED:", event.track.kind);
+};
     console.log("REMOTE TRACK RECEIVED:", socketListId);
     console.log("TRACK:", event.track);
     console.log("STREAM:", event.streams[0]);
