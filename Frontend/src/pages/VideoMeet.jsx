@@ -674,7 +674,7 @@ connections[socketListId].ontrack = (event) => {
             
                 <video className="meetUserVideo" ref={localVideoRef} autoPlay muted style={{ transform: "scaleX(-1)" }}></video>
 
-                    <div className="conferenceView">
+                    {/* <div className="conferenceView">
 
                     {videos.map((video) => 
 
@@ -696,7 +696,37 @@ connections[socketListId].ontrack = (event) => {
 
                     )
                     }
-                    </div>
+                    </div> */}
+                    <div className="conferenceView">
+    {videos.map((video) => (
+        <div key={video.socketId}>
+            <video
+                data-socket={video.socketId}
+                ref={ref => {
+                    if (ref && video.stream) {
+                        ref.srcObject = video.stream;
+
+                        ref.onloadedmetadata = () => {
+                            console.log("REMOTE VIDEO METADATA LOADED");
+                            console.log("Video width:", ref.videoWidth);
+                            console.log("Video height:", ref.videoHeight);
+
+                            ref.play().catch(err => {
+                                console.error("REMOTE VIDEO PLAY ERROR:", err);
+                            });
+                        };
+
+                        ref.onplaying = () => {
+                            console.log("REMOTE VIDEO IS PLAYING");
+                        };
+                    }
+                }}
+                autoPlay
+                playsInline
+            />
+        </div>
+    ))}
+</div>
             </div>
             }
         </div>
