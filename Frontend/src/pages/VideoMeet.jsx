@@ -24,9 +24,31 @@ const server_url = server;
 let connections = {};
 
 const peerConfigConnections = {
-    "iceServers" : [
-        { "urls" : "stun:stun.l.google.com:19302"}
-    ]
+    iceServers: [
+      {
+        urls: "stun:stun.relay.metered.ca:80",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80",
+        username: "9008819c20e29da6bf3defd6",
+        credential: "ZfUrz0zWCtcaQk82",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        username: "9008819c20e29da6bf3defd6",
+        credential: "ZfUrz0zWCtcaQk82",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:443",
+        username: "9008819c20e29da6bf3defd6",
+        credential: "ZfUrz0zWCtcaQk82",
+      },
+      {
+        urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        username: "9008819c20e29da6bf3defd6",
+        credential: "ZfUrz0zWCtcaQk82",
+      },
+  ],
 }
 
 export function VideoMeet() {
