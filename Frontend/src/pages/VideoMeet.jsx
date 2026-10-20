@@ -375,41 +375,94 @@ export function VideoMeet() {
                     }
 
                     // Wait for their video stream
-                    connections[socketListId].onaddstream = (event) => {
-                        console.log("REMOTE STREAM RECEIVED:", socketListId);
+                    // connections[socketListId].onaddstream = (event) => {
+                    //     console.log("REMOTE STREAM RECEIVED:", socketListId);
 
-                        console.log("STREAM:", event.stream);
+                    //     console.log("STREAM:", event.stream);
 
-                        let videoExists = videoRef.current.find(video => video.socketId === socketListId);
+                    //     let videoExists = videoRef.current.find(video => video.socketId === socketListId);
 
-                        if (videoExists) {
-                            console.log("FOUND EXISTING");
+                    //     if (videoExists) {
+                    //         console.log("FOUND EXISTING");
 
-                            // Update the stream of the existing video
-                            setVideos(videos => {
-                                const updatedVideos = videos.map(video =>
-                                    video.socketId === socketListId ? { ...video, stream: event.stream } : video
-                                );
-                                videoRef.current = updatedVideos;
-                                return updatedVideos;
-                            });
-                        } else {
-                            // Create a new video
-                            console.log("CREATING NEW");
-                            let newVideo = {
-                                socketId: socketListId,
-                                stream: event.stream,
-                                autoplay: true,
-                                playsinline: true
-                            };
+                    //         // Update the stream of the existing video
+                    //         setVideos(videos => {
+                    //             const updatedVideos = videos.map(video =>
+                    //                 video.socketId === socketListId ? { ...video, stream: event.stream } : video
+                    //             );
+                    //             videoRef.current = updatedVideos;
+                    //             return updatedVideos;
+                    //         });
+                    //     } else {
+                    //         // Create a new video
+                    //         console.log("CREATING NEW");
+                    //         let newVideo = {
+                    //             socketId: socketListId,
+                    //             stream: event.stream,
+                    //             autoplay: true,
+                    //             playsinline: true
+                    //         };
 
-                            setVideos(videos => {
-                                const updatedVideos = [...videos, newVideo];
-                                videoRef.current = updatedVideos;
-                                return updatedVideos;
-                            });
-                        }
-                    };
+                    //         setVideos(videos => {
+                    //             const updatedVideos = [...videos, newVideo];
+                    //             videoRef.current = updatedVideos;
+                    //             return updatedVideos;
+                    //         });
+                    //     }
+                    // };
+
+                    // Receive remote video and audio streams
+connections[socketListId].ontrack = (event) => {
+
+    console.log("REMOTE TRACK RECEIVED:", socketListId);
+    console.log("TRACK:", event.track);
+    console.log("STREAM:", event.streams[0]);
+
+    const remoteStream = event.streams[0];
+
+    if (!remoteStream) {
+        console.log("No remote stream received");
+        return;
+    }
+
+    const videoExists = videoRef.current.find(
+        video => video.socketId === socketListId
+    );
+
+    if (videoExists) {
+
+        console.log("UPDATING EXISTING VIDEO");
+
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video =>
+                video.socketId === socketListId
+                    ? { ...video, stream: remoteStream }
+                    : video
+            );
+
+            videoRef.current = updatedVideos;
+            return updatedVideos;
+        });
+
+    } else {
+
+        console.log("ADDING NEW VIDEO");
+
+        const newVideo = {
+            socketId: socketListId,
+            stream: remoteStream,
+            autoplay: true,
+            playsinline: true
+        };
+
+        setVideos(prevVideos => {
+            const updatedVideos = [...prevVideos, newVideo];
+            videoRef.current = updatedVideos;
+            return updatedVideos;
+        });
+
+    }
+};
 
 
 
