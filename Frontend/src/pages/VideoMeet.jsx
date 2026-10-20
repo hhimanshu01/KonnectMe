@@ -361,7 +361,22 @@ export function VideoMeet() {
 
                 clients.forEach((socketListId) => {
 
-                    connections[socketListId] = new RTCPeerConnection(peerConfigConnections)
+                    connections[socketListId] = new RTCPeerConnection(peerConfigConnections);
+                    connections[socketListId].oniceconnectionstatechange = () => {
+    console.log(
+        "ICE CONNECTION STATE:",
+        socketListId,
+        connections[socketListId].iceConnectionState
+    );
+};
+
+connections[socketListId].onconnectionstatechange = () => {
+    console.log(
+        "PEER CONNECTION STATE:",
+        socketListId,
+        connections[socketListId].connectionState
+    );
+};
 
                                             console.log("PEER CONNECTION CREATED:", socketListId);
 
@@ -419,6 +434,10 @@ connections[socketListId].ontrack = (event) => {
     console.log("STREAM:", event.streams[0]);
 
     const remoteStream = event.streams[0];
+
+    console.log("REMOTE STREAM ACTIVE:", remoteStream?.active);
+console.log("REMOTE VIDEO TRACKS:", remoteStream?.getVideoTracks());
+console.log("REMOTE AUDIO TRACKS:", remoteStream?.getAudioTracks());
 
     if (!remoteStream) {
         console.log("No remote stream received");
