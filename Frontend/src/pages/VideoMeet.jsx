@@ -15,10 +15,11 @@ import ScreenShareRoundedIcon from '@mui/icons-material/ScreenShareRounded';
 import StopScreenShareRoundedIcon from '@mui/icons-material/StopScreenShareRounded';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import { useNavigate } from "react-router-dom";
+import server from "../environment";
 
 
 
-const server_url = "http://localhost:8000";
+const server_url = `${server}`;
 
 let connections = {};
 
