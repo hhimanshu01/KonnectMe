@@ -5,6 +5,21 @@
     background-color: rgb(4, 4, 39);
 }
 
+.noVideo
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 8vh;
+    height  : 20vh;
+    width : 223px;
+    left: 15px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 20px;
+    z-index: 1;
+}
+
 .meetUserVideo
 {
     position: absolute;
@@ -13,7 +28,10 @@
     width : auto;
     left: 15px;
     border-radius: 20px;
+    z-index: 2;
 }
+
+
 
 .buttonContainer
 {
@@ -48,22 +66,58 @@
 .chatRoom
 {
     position: absolute;
-    background-color: white;
+    background-color: 	#d5c7ba;
     height : 90vh;
     border-radius: 10px;
-    width: 30vw;
+    width: 27vw;
+    top : 5vh;
     right: 0;
     padding-inline: 20px;
 }
 
 .chatContainer
 {
-    height: 100%;
+    height: 87%;
     position: relative;
+    overflow-y: scroll ;
+}
+
+
+
+
+.displayMsg
+{
+    display : flex;
+    flex-direction: column;
+    background-color:  #3f556f;
+    border-radius: 10px; 
+    border-top-left-radius: 0;
+    width:fit-content ;
+    padding : 15px;
+    margin-bottom: 1.5rem;
 }
 
 .chattingArea
 {
-    position: absolute;
-    bottom : 0;
+   
+    margin-top: 15px;
+    height: 4rem;
+    border: 1.5px solid black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* gap : 10px; */
+    padding-inline: 20px;
+    align-items: center;
+    bottom : 2vh;
+    border-radius: 40px;
+}
+
+.chattingArea .inputBox
+{
+    width : 200px;
+    height: 40px;
+    border: none;
+    background-color: #d5c7ba;
+    outline: none;
 }

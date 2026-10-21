@@ -16,7 +16,8 @@ import StopScreenShareRoundedIcon from '@mui/icons-material/StopScreenShareRound
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
-import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 
 const server_url = server;
@@ -684,32 +685,35 @@ connections[socketListId].ontrack = (event) => {
 
 
                     <div className="chatContainer">
-                        <h1 style={{textAlign : "center"}}>CHAT</h1>
+                        <h2 style={{textAlign : "center"}}>Messages</h2>
+                        <br />
 
                         <div className="chatDisplay">
 
                                 {messages.length !== 0 ? messages.map((item, index) => {
 
                                     return (
-                                        <div style={{ marginBottom: "20px" }} key={index}>
-                                            <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                                            <div style={{ display: "flex" , alignItems : "center" }}>
-                                                <KeyboardReturnRoundedIcon style={{ transform: "scaleX(-1)"}}/>&nbsp;<span>{item.data}</span>
-                                            </div>
+                                        <div key={index} className="displayMsg">
+                                            <span style={{ fontWeight: "bold" , color : "white" , fontStyle : "italic"}}> ~ {item.sender} </span>
+                                               
+                                                <span style={{  color : "#f5f5f5" }}>{item.data}</span>
+                                            
                                         </div>
                                     );
                                 }) : <p>No Messages Yet</p>}
                         </div>
 
-                        <div className="chattingArea">
-                            <TextField value={message} onChange={e => setMessage(e.target.value)} id="outlined-basic" label="Enter your chat" variant="outlined"></TextField>
-                            <Button variant="contained" onClick={sendMessage}>Send</Button>
-                        </div>
+                        
 
                     </div>
 
+                          <div className="chattingArea">
+                            <input className="inputBox" value={message} onChange={e => setMessage(e.target.value)} placeholder="Enter your message" />
+                            <SendRoundedIcon onClick={sendMessage}/>
+                        </div>      
                     
-                </div> : <></>
+                </div>
+                 : <></>
 
                 }
                
@@ -725,6 +729,13 @@ connections[socketListId].ontrack = (event) => {
                         {(audio === true) ? <MicRoundedIcon /> : <MicOffRoundedIcon />}
                     </IconButton>
 
+               
+                    <IconButton onClick={handleEndCall} style={{color: "white" , backgroundColor:"red"}}>
+                        <CallEndRoundedIcon style={{fontSize: "2rem"}}/>
+                    </IconButton>
+                    &nbsp;
+                    
+
                     {screenAvailable === true ?
 
                     <IconButton onClick={handleScreen} style={{color: "white"}}>
@@ -738,14 +749,14 @@ connections[socketListId].ontrack = (event) => {
                         
                     </Badge>
                     </IconButton>
-                    &nbsp;
-                    <IconButton onClick={handleEndCall} style={{color: "white" , backgroundColor:"red"}}>
-                        <CallEndRoundedIcon style={{fontSize: "2rem"}}/>
-                    </IconButton>
+                    
                 </div>
 
-            
+                        
                 <video className="meetUserVideo" ref={localVideoRef} autoPlay muted style={{ transform: "scaleX(-1)" }}></video>
+                <div className="noVideo">
+                        <VideocamOffRoundedIcon style={{ color : "white" , fontSize : "5rem" , padding : "auto"}} />
+                </div>
 
                     <div className="conferenceView">
 
@@ -761,7 +772,7 @@ connections[socketListId].ontrack = (event) => {
                                                 ref.srcObject = video.stream;
                                             }
                                             }} 
-                                    autoPlay>
+                                    autoPlay playsInline>
 
                                     </video>
                             </div>
